@@ -1,4 +1,10 @@
 ---
+- name: Setup ansible exec
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install Python3  # noqa 301
+      raw: apt -y update && apt install -y python3
 - name: Converge
   hosts: all
   tasks:

@@ -1,0 +1,52 @@
+---
+- name: Install build tool
+  apt:
+    name:
+      - build-essential
+      - libedit-dev
+      - uuid-dev
+      - libjansson-dev
+      - libxml2-dev
+      - libsqlite3-dev
+      - curl
+    state: present
+
+- name: check file
+  stat:
+    path: /usr/sbin/asterisk
+  register: f
+
+- name: Download src code.
+  get_url:
+    url: http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-17-current.tar.gz
+    dest: /usr/local/src/asterisk-17-current.tar.gz
+
+- name: Unarchive a file that is already on the remote machine
+  unarchive:
+    src: /usr/local/src/asterisk-17-current.tar.gz
+    dest: /usr/local/src
+    remote_src: yes
+  when: not f.stat.exists
+
+- name: configure, make, make install
+  command: "{{ item }}"
+  args:
+    chdir: /usr/local/src/asterisk-17.5.1
+  with_items:
+    - ./configure
+    - make
+    - make install
+    - make samples
+    - make config
+  when: not f.stat.exists
+
+- name: template
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - src: sip.conf.j2
+      dest: /etc/asterisk/sip.conf
+    - src: extensions.conf.j2
+      dest: /etc/asterisk/extensions.conf
+  notify: restart asterisk

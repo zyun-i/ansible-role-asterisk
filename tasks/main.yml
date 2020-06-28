@@ -1,2 +1,2 @@
 ---
-# tasks file for ansible-role-asterisk
+- include_tasks: install.yml
