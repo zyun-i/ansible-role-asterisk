@@ -10,7 +10,7 @@ galaxy_info:
         - focal
     - name: Debian
       versions:
-        - 10
+        - buster
   galaxy_tags: [asterisk, sip]
 
 dependencies: []
