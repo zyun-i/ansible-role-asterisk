@@ -19,7 +19,7 @@ None.
 ```yaml
     - hosts: servers
       roles:
-         - { role: zyun-i.ansible-role-asterisk }
+         - { role: zyun-i.asterisk }
 ```
 
 ## License
