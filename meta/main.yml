@@ -8,6 +8,9 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - focal
+    - name: Debian
+      versions:
+        - 10
   galaxy_tags: [asterisk, sip]
 
 dependencies: []
