@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: asterisk
   author: Isida Zyun'iti
   description: Install asterisk from souce
   license: MIT
