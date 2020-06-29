@@ -23,12 +23,12 @@
 
 - name: Download src code.
   get_url:
-    url: http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-17-current.tar.gz
-    dest: /usr/local/src/asterisk-17-current.tar.gz
+    url: "https://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-{{ asterisk_version }}.tar.gz"
+    dest: "/usr/local/src/asterisk-{{ asterisk_version }}.tar.gz"
 
 - name: Unarchive a file that is already on the remote machine
   unarchive:
-    src: /usr/local/src/asterisk-17-current.tar.gz
+    src: "/usr/local/src/asterisk-{{ asterisk_version }}.tar.gz"
     dest: /usr/local/src
     remote_src: yes
   when: not f.stat.exists
@@ -36,7 +36,7 @@
 - name: configure, make, make install
   command: "{{ item }}"
   args:
-    chdir: /usr/local/src/asterisk-17.5.1
+    chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
   with_items:
     - ./configure
     - make
