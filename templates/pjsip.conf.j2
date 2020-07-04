@@ -1,0 +1,29 @@
+[transport-udp]
+type = transport
+protocol = udp
+bind = 0.0.0.0 
+
+[reg_118.177.125.1]
+type = registration
+retry_interval = 20
+max_retries = 10
+contact_user = 0363048968
+expiration = 3600
+transport = transport-udp
+client_uri = sip:0363048968@ntt-east.ne.jp
+server_uri = sip:ntt-east.ne.jp
+
+[ntt]
+type = aor
+contact = sip:118.177.125.1
+
+[ntt]
+type = identify
+endpoint = ntt
+match = 118.177.125.1
+
+[ntt]
+type = endpoint
+context = fromntt
+from_domain = ntt-east.ne.jp
+aors = ntt

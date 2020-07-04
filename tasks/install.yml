@@ -38,20 +38,10 @@
   args:
     chdir: "/usr/local/src/asterisk-{{ asterisk_version }}"
   with_items:
+    - ./contrib/scripts/install_prereq install
     - ./configure
     - make
     - make install
     - make samples
     - make config
   when: not f.stat.exists
-
-- name: template
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - src: sip.conf.j2
-      dest: /etc/asterisk/sip.conf
-    - src: extensions.conf.j2
-      dest: /etc/asterisk/extensions.conf
-  notify: restart asterisk

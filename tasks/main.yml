@@ -1,2 +1,13 @@
 ---
 - include_tasks: install.yml
+
+- name: template
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - src: pjsip.conf.j2
+      dest: /etc/asterisk/pjsip.conf
+    - src: extensions.conf.j2
+      dest: /etc/asterisk/extensions.conf
+  notify: restart asterisk
