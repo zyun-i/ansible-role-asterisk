@@ -1,6 +1,6 @@
 # Ansible Role: Asterisk
 
-[![test](https://github.com/zyun-i/ansible-role-asterisk/workflows/test/badge.svg?branch=master)](https://github.com/zyun-i/ansible-role-asterisk/actions)
+[![test](https://github.com/zyun-i/ansible-role-asterisk/workflows/test/badge.svg?branch=release)](https://github.com/zyun-i/ansible-role-asterisk/actions)
 
 Install [Asterisk](https://www.asterisk.org/)
 
