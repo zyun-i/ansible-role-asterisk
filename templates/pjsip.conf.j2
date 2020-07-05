@@ -3,7 +3,7 @@ type = transport
 protocol = udp
 bind = 0.0.0.0 
 
-[reg_118.177.125.1]
+[ntt]
 type = registration
 retry_interval = 20
 max_retries = 10
@@ -15,15 +15,58 @@ server_uri = sip:ntt-east.ne.jp
 
 [ntt]
 type = aor
-contact = sip:118.177.125.1
+contact = sip:ntt-east.ne.jp
 
 [ntt]
 type = identify
 endpoint = ntt
-match = 118.177.125.1
+match = ntt-east.ne.jp
 
 [ntt]
 type = endpoint
-context = fromntt
+context = from-ntt
 from_domain = ntt-east.ne.jp
 aors = ntt
+disallow = all
+allow = ulaw
+language = ja
+
+[6001]
+type=endpoint
+transport=transport-udp
+context=from-internal
+disallow=all
+allow=ulaw
+allow=gsm
+auth=6001
+aors=6001
+
+[6001]
+type=auth
+auth_type=userpass
+password=6001
+username=6001
+
+[6001]
+type=aor
+max_contacts=1
+
+[6002]
+type=endpoint
+transport=transport-udp
+context=from-internal
+disallow=all
+allow=ulaw
+allow=gsm
+auth=6002
+aors=6002
+
+[6002]
+type=auth
+auth_type=userpass
+password=6002
+username=6002
+
+[6002]
+type=aor
+max_contacts=1

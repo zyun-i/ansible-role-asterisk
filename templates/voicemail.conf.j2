@@ -1,0 +1,26 @@
+[general]
+format=wav49
+serveremail=asterisk
+attach=yes
+skipms=3000
+maxsilence=10
+silencethreshold=128
+maxlogins=3
+
+emaildateformat=%A, %B %d, %Y at %r
+pagerdateformat=%A, %B %d, %Y at %r
+
+sendvoicemail=yes
+
+mailcmd=/usr/bin/msmtp -t
+
+[zonemessages]
+eastern=America/New_York|'vm-received' Q 'digits/at' IMp
+central=America/Chicago|'vm-received' Q 'digits/at' IMp
+central24=America/Chicago|'vm-received' q 'digits/at' H N 'hours'
+military=Zulu|'vm-received' q 'digits/at' H N 'hours' 'phonetic/z_p'
+european=Europe/Copenhagen|'vm-received' a d b 'digits/at' HM
+japan=Asia/Tokyo|Q PHM 'jp-ni' 'vm-received'
+
+[default]
+6001 => 4242,Mark Spencer,zyun@moin.jp,,tz=japan

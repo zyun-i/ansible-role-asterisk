@@ -1,9 +1,31 @@
-[general]
-static=yes
-writeprotect=no
-clearglobalvars=no
+[time]
+exten => _X.,30000(time),NoOp(Time: ${EXTEN} ${timezone})
+exten => _X.,n,Wait(0.25)
+exten => _X.,n,Answer()
+; the amount of delay is set for English; you may need to adjust this time
+; for other languages if there's no pause before the synchronizing beep.
+exten => _X.,n,Set(FUTURETIME=$[${EPOCH} + 12])
+exten => _X.,n,SayUnixTime(${FUTURETIME},Zulu,HNS)
+exten => _X.,n,SayPhonetic(z)
+; use the timezone associated with the extension (sip only), or system-wide
+; default if one hasn't been set.
+exten => _X.,n,SayUnixTime(${FUTURETIME},${timezone},HNS)
+exten => _X.,n,Playback(spy-local)
+exten => _X.,n,WaitUntil(${FUTURETIME})
+exten => _X.,n,Playback(beep)
+exten => _X.,n,Return()
 
-[fromntt]
-exten => _0.,1,Set(CALLERID(num)=${MYNUMBER})
-exten => _0.,2,Set(CALLERID(name)=${MYNUMBER})
-exten => _0.,n,Dial(SIP/${EXTEN}@fromntt)
+[from-internal]
+exten => 777,1,Gosub(time)
+exten => 777,n,Hangup()
+
+exten => _600X,1,Dial(PJSIP/${EXTEN},,tT)
+
+exten => _0.,1,Dial(PJSIP/${EXTEN}@ntt,120,rT)
+
+include => time
+
+[from-ntt]
+exten => 0363048968,1,Answer()
+exten => 0363048968,n,Wait(1)
+exten => 0363048968,n,Voicemail(6001)
